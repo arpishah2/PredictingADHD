@@ -1,0 +1,58 @@
+//Commands run over LINUX terminal
+
+
+//Concatenate files
+cat *.csv > output.csv
+
+//combines all csv files and stores result in output.csv
+//Reduce number of columns
+cut -d, -f1,9 newfile.csv > abc.csv
+
+//cuts column info of id, symptoms and saves it to abc.csv
+//Remove duplicates
+
+sort -u abc.csv -o abc1.csv
+//sorts and removes duplicates from abc.csv and saves result in abc1.csv
+
+
+//Remove header information
+//We do not need header line as we create class. So manually go and remove that line 
+//Search if line exists: 
+grep ‘/VAERS_ID/d’ abc1.csv
+
+//Remove line: 
+sed ‘/VAERS_ID/d’ abc1.csv > abc2.csv
+
+//Add column 
+//Add column ‘label’ with default values 0 and 1 each for positive and negative data respectively
+awk -F"," 'BEGIN { OFS = "," } {$3=0; print}' abc2.csv > abc3.csv
+
+
+//Rename files:
+cp abc3.csv positive.csv
+cp abc3.csv negative.csv
+
+
+//Reduce number of negative records for overfitting
+sort -k2,2n -k1,1n negative.csv > negative2.csv
+
+
+//Create sample
+head -1019 negative2.csv > negative_data.csv
+cp positive.csv positive_data.csv
+
+//Total Data: 
+cat *_data.csv > data_label01.csv
+
+
+//Create training and test data sample
+//We will have 66% of data as training and the rest as test data
+
+head -673 negative_data.csv > training_negative.csv
+head -673positive_data.csv > training_positive.csv
+tail -346 negative_data.csv > test_negative.csv
+tail -346 positive_data.csv > test_positive.csv
+wc -l training_*.csv test_*.csv
+cat test_*.csv > testData_Label01.csv
+cat training_*.csv > trainingData_Label01.csv
+
