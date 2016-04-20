@@ -16,4 +16,8 @@ Please view "Predicting Attention Deficit Hyperactive Disorder using large s.pdf
 #Conclusion:
 Naive Bayes and Logistic Regression models have been built in Weka and Apache Spark. Model based on logistic regression performs better than model built using Naive Bayes classifier. Hence, if the model is used in real world scenario then it can prove to solve some diagnostic problems of ADHD.
 
+Error
+remote: warning: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.
+remote: warning: See http://git.io/iEPt8g for more information.
+remote: warning: File SparkData/negative/newfile.csv is 66.97 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB
 
